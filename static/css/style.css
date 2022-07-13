@@ -1,0 +1,43 @@
+body {
+    background-color: #66BFBF;
+}
+.navbar-brand {
+    color: aliceblue;
+}
+
+.navbar-nav {
+    position: relative;
+    left: 70rem;
+}
+
+.navbar-brand {
+    position: relative;
+    left: 7rem;
+}
+
+.des {
+    color:azure;
+    padding-top: 3rem;
+    font-size: x-large;
+}
+
+.search {
+    padding: 2rem;
+    padding-left: 0;
+}
+.product-show {
+    padding: 5rem;
+    padding-top: 2rem;
+    padding-left: 12px;
+}
+h5 {
+    color: azure;
+}
+h6 {
+    padding: 1rem;
+    color: azure;
+}
+.link-product{
+    padding:1rem,1rem;
+    color: #FF0063;
+}

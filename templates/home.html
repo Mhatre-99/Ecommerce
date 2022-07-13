@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Compare Sites</title>
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script> 
+        <link rel = "stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    </head>
+    <body>
+        <!-- As a heading -->
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark bg-dark">
+            <div class="container-fluid nav-div">
+                <span class="navbar-brand mb-0 h1">COMPARE</span>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('about') }}">About</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        
+        <div class = "container-lg">
+            <p class="des">
+                The products will be compared from Amazon and Flipkart
+            </p>
+        
+            <div class="search">
+                <form class="d-flex" role="search" name="form" method="POST">
+                    <input class="form-control me-2" name="search_box" type="search" placeholder="Product name" aria-label="Search">
+                    <button class="btn btn-dark submit" value="Submit" type="submit">Search</button>
+                  </form>
+        </div>
+        </div>
+        <div class="container-lg product-show">
+            <h5>Best Product Found</h5>
+            <div><h6>Link to the product:</h6></div>
+            <p>
+                <a class="link-product" href="{{link}}">{{link}}</a>
+            </p>
+        </div>
+    </body>
+    <footer><script src="{{ url_for('static' , filename = 'script/index.js')}}" charset="utf-8"></script></footer>
+</html>
