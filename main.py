@@ -1,9 +1,7 @@
-from ast import Num
-from operator import index
+
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import numpy as np
 
 
 class productCompare:
@@ -35,6 +33,7 @@ class productCompare:
     def scrape_amazon(self,search_url):
         
         print('processing ', search_url)
+        a_i_db = []
         amazon_items = {}
         Brand = []
         Des = []
@@ -70,6 +69,9 @@ class productCompare:
                 image = image['src']
             except:
                 image = ''
+            amazon_items_db = {'brand' : brand, 'description': description, 'price': price, 'ratings': ratings, 'num_rating': num_rating,
+            'product_link': product_link, 'image': image}
+            a_i_db.append(amazon_items_db)
             Brand.append(brand)
             Des.append(description)
             Ratings.append(ratings)
@@ -77,6 +79,7 @@ class productCompare:
             Price.append(price)
             Product_link.append(product_link)
             Image.append(image)
+
         amazon_items = {'brand' : Brand, 'description': Des, 'price': Price, 'ratings': Ratings, 'num_rating': Num_rating,
         'product_link': Product_link, 'image': Image}
             #amazon_items.append(amazon_item)
@@ -86,12 +89,13 @@ class productCompare:
             print('num_rating: ', num_rating)
             print('price: ', price)"""
             
-        return amazon_items
+        return amazon_items, a_i_db
 #scrape_amazon(amazon_search, header)
 
     def scrape_flipkart(self,search_url):
 
         print('processing ', search_url)
+        f_i_list=[]
         flipkart_items = {}
         Brand = []
         Des = []
@@ -129,8 +133,9 @@ class productCompare:
                 image = tag.find('img', {'class': '_2r_T1I'})
                 image = image['src']
             except: image = ''
-            
-
+            flipkart_items_db = {'brand' : brand, 'description': description, 'price': price, 'ratings': ratings, 'num_rating': num_rating,
+            'product_link': product_link, 'image': image}
+            f_i_list.append(flipkart_items_db)
             Brand.append(brand)
             Des.append(description)
             Ratings.append(ratings)
@@ -141,23 +146,19 @@ class productCompare:
         flipkart_items = {'brand' : Brand, 'description': Des, 'price': Price, 'ratings': Ratings, 'num_rating': Num_rating,
         'product_link': Product_link, 'image': Image}
             #print(rating, num_rating)
-        return flipkart_items
+        return flipkart_items, f_i_list
 
 #scrape_flipkart(flipkart_search, header)
 
     def compare(self):
         amazon_url, flipkart_url = self.get_input()
-        amazon_items = self.scrape_amazon(amazon_url)
-        flipkart_items = self.scrape_flipkart(flipkart_url)
-        print(amazon_items)
-        print(flipkart_items)
-        data = pd.DataFrame(amazon_items)
-        data = pd.concat([data, pd.DataFrame(flipkart_items)], axis = 0)
+        amazon_items, amazon_items_db = self.scrape_amazon(amazon_url)
+        flipkart_items, flipkart_items_db = self.scrape_flipkart(flipkart_url)
+       
+        data_pd = pd.DataFrame(amazon_items)
+        data = pd.concat([data_pd, pd.DataFrame(flipkart_items)], axis = 0)
         data.to_excel('compare.xlsx', index=False)
-        
-        data_sorted = data.sort_values(['num_rating','ratings', 'price'], ascending=[False,False,True])
-        print(data_sorted.columns.values)
-        best = data_sorted.iloc[0:1, -2:-1]
-        
-        return best['product_link'].to_list()[0]
+              
+        amazon_items_db.extend(flipkart_items_db)
+        return amazon_items_db
         
